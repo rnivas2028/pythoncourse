@@ -206,7 +206,7 @@ def exercise16():
     # ------ Place code above here /\ /\ /\ ------
     a=100 
     b=200
-    c=math.sqrt(100*100+200*200)
+    c=math.sqrt(a**2+b**2)
     print("hypotenuse=",c)
     return a, b, c
 
