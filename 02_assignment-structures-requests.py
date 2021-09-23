@@ -27,7 +27,7 @@ def exercise01():
     # Create a list called animals containing the following animals: cat, dog, crouching tiger, hidden dragon, manta ray
 
     # ------ Place code below here \/ \/ \/ ------
-
+    animals = ['cat', 'dog', 'crouching tiger', 'hidden dragon', 'manta ray']
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -38,13 +38,14 @@ def exercise02():
     # Repeat exercise 1 and loop through and print each item in the animal list by iterating through an index number and using range(). Set the variable len_animals to the length of the animal list.
 
     # ------ Place code below here \/ \/ \/ ------
-
-
+    animals = ['cat', 'dog', 'crouching tiger', 'hidden dragon', 'manta ray']
+    len_animals=len(animals)
+    print(animals)
+    for i in range(len(animals)):
+        print(i,animals[i])
     # ------ Place code above here /\ /\ /\ ------
 
     return animals, len_animals
-
-
 def exercise03():
     # Programmatically reorganize the countdown list below in descending order and return the value of the 5th element in the sorted countdown list.
     # The 5th element will be stored in the variable the_fifth_element, which currently below has a dummy value of -999.
@@ -52,17 +53,16 @@ def exercise03():
     
     countdown = [9, 8, 7, 5, 4, 2, 1, 6, 10, 3, 0, -5]
     the_fifth_element = -999
-
     # ------ Place code below here \/ \/ \/ ------
-
-
+    countdown.sort(reverse=True)
+    the_fifth_element = countdown[4]
     # ------ Place code above here /\ /\ /\ ------
 
     return countdown, the_fifth_element
 
 
 def exercise04(more_temperatures, iot_sensor_points, a, b, c, d, e):
-    # This exercise function receives a list of temperatures and a dictionary of temperature data where the key is an arbitrary sequential number and the value is the temperature and a,b,c,d and e are each a single temperature reading
+ # This exercise function receives a list of temperatures and a dictionary of temperature data where the key is an arbitrary sequential number and the value is the temperature and a,b,c,d and e are each a single temperature reading
     # To Do:
     # 1. Add all of the items in more_temperatures to the temperatures list
     # 2. Add all of the temperature values in iot_sensor_points to the temperatures list
@@ -72,13 +72,18 @@ def exercise04(more_temperatures, iot_sensor_points, a, b, c, d, e):
     # 6. Do a shallow copy of samples into copy_of_samples
     # 7. Organize samples in ascending order
 
-    temperatures = list(np.random.randint(-25, 25, size=10))
     samples = []
     copy_of_samples = []
 
     # ------ Place code below here \/ \/ \/ ------
-
-
+    temperatures = list(np.random.randint(-25, 25, size=10))
+    temperatures.extend(more_temperatures)
+    temperatures.extend(iot_sensor_points.values())
+    temperatures.extend([a, b, c, d, e])
+    temperatures.sort(reverse = True)
+    samples = temperatures[4::5]
+    copy_of_samples = samples[:]
+    samples.sort()
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -89,39 +94,47 @@ def exercise05(n):
     # This function will find n factorial using recursion (calling itself) and return the solution. For example exercise05(5) will return 120. No Python functions are to be used.
 
     # ------ Place code below here \/ \/ \/ ------
-
-    pass # Remove this line
-
+    def factorial(n):
+         
+        # single line to find factorial
+        return 1 if (n==1 or n==0) else n * factorial(n - 1);
+    result = factorial(n)
+    return result
     # ------ Place code above here /\ /\ /\ ------
 
 
 def exercise06(n):
-     # This function will receive an arbitrary list of numbers of arbitrary size and find the average of those numbers. The size of the list may vary. Find the method that requires the  least amount of code. Return back the length, sum of list and average of list
-
+    # This function will receive an arbitrary list of numbers of arbitrary size and find the average of those numbers. The size of the list may vary. Find the method that requires the  least amount of code. Return back the length, sum of list and average of list
     # ------ Place code below here \/ \/ \/ ------
+     length_n=len(n)
+     sum_n=sum(n)
+     average_n=sum_n/length_n
 
-
-    # ------ Place code above here /\ /\ /\ ------
-    return length_n, sum_n, average_n
+     # ------ Place code above here /\ /\ /\ ------
+     return length_n, sum_n, average_n
 
 
 def exercise07(n):
     # This function looks for duplicates in list n. If there is a duplicate True is returned. If there are no duplicates False is returned.
 
     # ------ Place code below here \/ \/ \/ ------
-
+    list = n
+    status = False
+    for item in list:
+        if list.count(item) > 1:
+            status = True
+            break
+    return status
 
     # ------ Place code above here /\ /\ /\ ------
-
-
-# ------ Place code below here \/ \/ \/ ------
-
+    
 def exercise08(s):
     # This function receives a string. The string should be casted to an int and then a float and returns each separately
+    s_float = float(s)
+    s_int = int(s)    
+    return s_int, s_float
 
-    return int_s, float_s
-
-# ------ Place code above here /\ /\ /\ ------
+    # ------ Place code above here /\ /\ /\ ------
 
 def exercise09():
     # Compile a list of 11 random URLs of dog pics. You will simply APPEND the dogs list with URLs of pics so that the list contains 11 URLs. This means you will extract the URL and insert into the list dogs.
@@ -133,7 +146,9 @@ def exercise09():
     
     # ------ Place code below here \/ \/ \/ ------
     
-
+    for n in range(0,9):
+        dogs.append(str(dog_media.content))
+        dog_media=r.get(url=url)
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -145,12 +160,11 @@ def exercise10(sentence):
     reversed = ''
 
     # ------ Place code below here \/ \/ \/ ------
-    
-
-
+    reversed_seq = sentence[::-1]
+    case_change = reversed_seq.swapcase()
+    reversed=case_change.replace(" ", "_")
     # ------ Place code above here /\ /\ /\ ------
     return reversed
-
 
 
 class TestAssignment2(unittest.TestCase):
@@ -232,9 +246,6 @@ class TestAssignment2(unittest.TestCase):
         print('Testing exercise 10')
         self.assertEqual(exercise10('HellO'),'oLLEh')
         self.assertEqual(exercise10('ThIs Is MaD'),'dAm_Si_SiHt')
-
-
-
-
+        
 if __name__ == '__main__':
     unittest.main()
